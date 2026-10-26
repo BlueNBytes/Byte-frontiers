@@ -1,0 +1,12 @@
+{
+  "name": "byte-frontiers",
+  "version": "1.1.1",
+  "private": true,
+  "description": "Byte Frontiers game with account authentication and persistent game saves",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

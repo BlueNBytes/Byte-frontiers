@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0a1a;
+  color: #e0e0ff;
+  font-family: 'Inter', sans-serif;
+  padding: 10px 12px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+#store-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  margin-bottom: 6px;
+}
+
+#store-header h1 { font-size: 12px; color: #6c5ce7; flex: 1; }
+#money { color: #6cf; }
+
+#btn-close {
+  background: #1a1a2e;
+  border: 1px solid #6c5ce7;
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#btn-close:hover { background: #6c5ce7; }
+
+#store-message {
+  min-height: 14px;
+  margin-bottom: 6px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  line-height: 1.4;
+  color: #2ecc71;
+}
+#store-message.error { color: #e74c3c; }
+
+#card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding-bottom: 8px;
+}
+
+.card {
+  background: #1a1a2e;
+  border: 1px solid #333;
+  border-left: 5px solid #6c5ce7;
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 10px;
+}
+.card h3 { font-size: 11px; margin-bottom: 3px; }
+.card p { color: #bbb; line-height: 1.4; }
+.card .price { color: #f1c40f; }
+.card .owned { color: #777; margin-bottom: 4px; }
+
+.btn-buy {
+  background: #6c5ce7;
+  border: none;
+  color: #fff;
+  padding: 4px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+}
+.btn-buy:hover:not(:disabled) { background: #7d6ff0; }
+.btn-buy:disabled { background: #333; color: #777; cursor: not-allowed; }

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Byte Frontiers – Electromon</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="game-wrapper">
+    <canvas id="game-canvas" width="480" height="360"></canvas>
+
+    <!-- HUD -->
+    <div id="hud" style="display:none;">
+      <span>ATK: <span class="hud-val" id="hud-atk">0</span></span>
+      <span>DEF: <span class="hud-val" id="hud-def">0</span></span>
+      <span>FORM: <span class="hud-val" id="hud-form">0</span></span>
+      <span>WINS: <span class="hud-val" id="hud-wins">0</span></span>
+      <span>$: <span class="hud-val" id="hud-money">0</span></span>
+    </div>
+
+    <!-- Hunger Bar -->
+    <div id="hunger-bar-container">
+      <div id="hunger-bar"></div>
+    </div>
+    <div id="hunger-label">HUNGER</div>
+
+    <!-- Speech bubble -->
+    <div id="speech-bubble"></div>
+
+    <!-- Buttons -->
+    <button id="btn-menu" class="game-btn"><img src="./assets/ui/menu.svg" alt="Menu" /></button>
+    <button id="btn-battle" class="game-btn"><img src="./assets/ui/battle.svg" alt="Battle" /></button>
+    <button id="btn-feed" class="game-btn"><img src="./assets/ui/feed.svg" alt="Feed" /></button>
+
+    <!-- Result overlay -->
+    <div id="result-overlay"></div>
+
+    <!-- Menu panel -->
+    <div id="menu-panel">
+      <button class="menu-btn" id="menu-save"><img src="./assets/ui/save.svg" alt="Save Code" /></button>
+      <button class="menu-btn" id="menu-load"><img src="./assets/ui/load.svg" alt="Load Save" /></button>
+      <button class="menu-btn" id="menu-pvp"><img src="./assets/ui/pvp.svg" alt="PVP Battle" /></button>
+      <button class="menu-btn" id="menu-stats"><img src="./assets/ui/stats.svg" alt="Stats" /></button>
+      <button class="menu-btn" id="menu-store"><img src="./assets/ui/store.svg" alt="Store" /></button>
+      <button class="menu-btn" id="menu-inventory"><img src="./assets/ui/inventory.svg" alt="Inventory" /></button>
+      <button class="menu-btn" id="menu-training"><img src="./assets/ui/training.svg" alt="Training" /></button>
+      <button class="menu-btn" id="menu-close"><img src="./assets/ui/close.svg" alt="Close" /></button>
+    </div>
+
+    <!-- Training overlay -->
+    <section id="training-overlay" aria-label="Training" aria-hidden="true">
+      <button id="training-close" class="overlay-close" aria-label="Close training"><img src="./assets/ui/close.svg" alt="Close"></button>
+      <h2>TRAINING SIMULATOR</h2>
+      <p class="training-subtitle">Train your Electromon to improve its stats.</p>
+      <div class="training-stats">
+        <span>ATK <b id="training-atk">0</b></span>
+        <span>DEF <b id="training-def">0</b></span>
+        <span>HP <b id="training-hp">0</b></span>
+      </div>
+      <div class="training-actions">
+        <button class="training-action" data-training="antivirus"><img src="./assets/ui/data.svg" alt=""><span>ANTIVIRUS</span></button>
+        <button class="training-action" data-training="data"><img src="./assets/ui/rock.svg" alt=""><span>DATA</span></button>
+        <button class="training-action" data-training="virus"><img src="./assets/ui/virus.svg" alt=""><span>VIRUS</span></button>
+      </div>
+      <p id="training-result" role="status">Choose a training protocol to begin.</p>
+      <button id="training-fight" class="training-fight"><img src="./assets/ui/attack.svg" alt=""> Battle Training Bot</button>
+      <p id="training-log" aria-live="polite"></p>
+      <button id="training-back" class="training-back"><img src="./assets/ui/back.svg" alt=""> Back to menu</button>
+    </section>
+
+    <!-- Store overlay (store.html is loaded in here when the Store menu button is clicked) -->
+    <div id="store-overlay">
+      <iframe id="store-frame" title="Store"></iframe>
+    </div>
+
+    <!-- Inventory overlay -->
+    <section id="inventory-overlay" aria-label="Inventory" aria-hidden="true">
+      <button id="inventory-close" class="overlay-close" aria-label="Close inventory"><img src="./assets/ui/close.svg" alt="Close"></button>
+      <h2>INVENTORY</h2>
+      <p class="inventory-subtitle">Items you have collected. Select an item to use it.</p>
+      <div id="inventory-summary" class="inventory-summary"></div>
+      <div id="inventory-items" class="inventory-items"></div>
+      <p id="inventory-message" role="status">Your items will appear here.</p>
+      <button id="inventory-back" class="training-back"><img src="./assets/ui/back.svg" alt=""> Back to menu</button>
+    </section>
+
+    <!-- Prompt overlay -->
+    <div id="prompt-overlay">
+      <div id="prompt-box">
+        <p id="prompt-text">Enter code:</p>
+        <input id="prompt-input" type="text" autocomplete="off" />
+        <button id="prompt-submit" aria-label="Confirm"><img src="./assets/ui/ok.svg" alt="Confirm"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="account-store.js"></script>
+  <script src="items.js"></script>
+  <script src="game.js"></script>
+</body>
+
+</html>

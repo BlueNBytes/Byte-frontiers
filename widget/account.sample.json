@@ -1,0 +1,100 @@
+{
+  "accounts": [
+    {
+      "accountId": "acc_bf_9021a",
+      "username": "PixelTrainer",
+      "email": "trainer@bytefrontiers.local",
+      "auth": {
+        "passwordHash": "$2b$10$e74f828a1...example_hashed_password",
+        "sessionToken": "tok_9f3b2a8c1e4d7",
+        "lastLogin": "2026-10-19T22:00:00Z",
+        "createdAt": "2026-10-15T14:22:10Z"
+      },
+
+      "activeElectromon": {
+        "monId": 1,
+        "species": "glitchit",
+        "nickname": "Glitzy",
+        "form": 2,
+        "costume": "glitchitit",
+        "stats": {
+          "attack": 25,
+          "defence": 55,
+          "hp": 100,
+          "maxHp": 100,
+          "hunger": 5,
+          "maxHunger": 6
+        },
+        "evolution": {
+          "canEvolve": true,
+          "hasEvolved": true,
+          "evolvedFormName": "Gloopus",
+          "evolutionTimestamp": "2026-10-19T21:45:00Z"
+        },
+        "saveCode": "b32"
+      },
+
+      "partyStorage": [
+        {
+          "slot": 1,
+          "monId": 4,
+          "species": "blobito",
+          "nickname": "Blobby",
+          "form": 1,
+          "costume": "blobito",
+          "stats": {
+            "attack": 25,
+            "defence": 25,
+            "hunger": 4
+          },
+          "saveCode": "a252"
+        },
+        {
+          "slot": 2,
+          "monId": 3,
+          "species": "green guy",
+          "nickname": "Mossy",
+          "form": 2,
+          "costume": "alee",
+          "stats": {
+            "attack": 20,
+            "defence": 60,
+            "hunger": 6
+          },
+          "saveCode": "367"
+        }
+      ],
+
+      "battleRecord": {
+        "totalBattles": 18,
+        "pve": {
+          "wins": 14,
+          "losses": 2
+        },
+        "pvp": {
+          "wins": 2,
+          "losses": 0,
+          "rating": 1240
+        },
+        "winRate": 14
+      },
+
+      "inventory": {
+        "food": {
+          "meat": 12,
+          "berry": 5
+        },
+        "items": {
+          "evolutionShard": 2,
+          "energyCell": 1
+        }
+      },
+
+      "settings": {
+        "sfxVolume": 0.8,
+        "soundEnabled": true,
+        "autoSave": true
+      }
+    }
+  ]
+}

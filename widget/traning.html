@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: #090d1b url("assets/backgrounds/fight-scene.png") center/cover no-repeat;
+            color: #fff;
+            font-family: Arial, sans-serif
+        }
+
+        .auth-card {
+            width: min(92vw, 390px);
+            padding: 28px;
+            background: #10182aee;
+            border: 1px solid #6c5ce7;
+            border-radius: 16px;
+            box-shadow: 0 12px 45px #0009
+        }
+
+        .auth-card h1 {
+            margin-top: 0;
+            color: #a99bff
+        }
+
+        .auth-card label {
+            display: block;
+            margin: 14px 0 6px
+        }
+
+        .auth-card input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #59627a;
+            background: #080d19;
+            color: white
+        }
+
+        .auth-card button img{width:20px;height:20px;vertical-align:middle}.auth-card button {
+            margin: 14px 8px 0 0;
+            padding: 11px 16px;
+            border: 0;
+            border-radius: 8px;
+            background: #6c5ce7;
+            color: white;
+            font-weight: bold;
+            cursor: pointer
+        }
+
+        .auth-card #status {
+            min-height: 1.2em;
+            color: #ffb6b6
+        }
+
+        .auth-card a {
+            color: #c4bbff
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Data, Antivirus, Virus</h1>
+    <div>
+        <button onclick="playGame('data')"><img src="assets/ui/rock.svg" alt=""> Data</button>
+        <button onclick="playGame('antivirus')"><img src="assets/ui/data.svg" alt=""> Antivirus</button>
+        <button onclick="playGame('virus')"><img src="assets/ui/virus.svg" alt=""> Virus</button>
+    </div>
+    <p id="result"></p>
+
+    <script src="training.js"></script>
+</body>
+
+</html>

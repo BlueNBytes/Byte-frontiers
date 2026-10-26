@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a0a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: #e0e0ff;
+  overflow: hidden;
+}
+
+#game-wrapper {
+  position: relative;
+  width: 480px;
+  height: 360px;
+  border: 2px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(100, 80, 255, 0.3), 0 0 80px rgba(100, 80, 255, 0.1);
+}
+
+canvas {
+  display: block;
+  width: 480px;
+  height: 360px;
+  image-rendering: pixelated;
+}
+
+/* Speech bubble overlay */
+#speech-bubble {
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  line-height: 1.6;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 2px solid #333;
+  max-width: 400px;
+  text-align: center;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* Prompt overlay for askAndWait */
+#prompt-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 30;
+  justify-content: center;
+  align-items: center;
+}
+
+#prompt-overlay.active {
+  display: flex;
+}
+
+#prompt-box {
+  background: #1a1a2e;
+  border: 2px solid #6c5ce7;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+}
+
+#prompt-box p {
+  margin-bottom: 12px;
+  color: #ddd;
+}
+
+#prompt-box input {
+  background: #0d0d1a;
+  border: 1px solid #6c5ce7;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  width: 200px;
+  outline: none;
+}
+
+#prompt-box button {
+  margin-left: 8px;
+  background: #6c5ce7;
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+}
+
+#prompt-box button:hover {
+  background: #7d6ff0;
+}
+
+/* Fight result overlay */
+#result-overlay {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 16px;
+  padding: 16px 28px;
+  border-radius: 10px;
+  z-index: 25;
+  pointer-events: none;
+  text-shadow: 0 0 10px currentColor;
+}
+
+/* HUD bar at top */
+#hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #aaa;
+  gap: 14px;
+  z-index: 10;
+}
+
+#hud span {
+  white-space: nowrap;
+}
+
+.hud-val {
+  color: #6cf;
+}
+
+/* Buttons that appear in-game */
+.game-btn {
+  position: absolute;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 15;
+  transition: transform 0.15s, filter 0.15s;
+  image-rendering: pixelated;
+}
+
+.game-btn img {
+  display: block;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.game-btn:hover {
+  transform: scale(1.1);
+  filter: brightness(1.25) drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+}
+
+.game-btn:active {
+  transform: scale(0.95);
+}
+
+#btn-menu {
+  top: 4px;
+  right: 4px;
+  z-index: 18;
+}
+
+#btn-menu img {
+  height: 28px;
+}
+
+#btn-battle {
+  display: none;
+  bottom: 52px;
+  right: 8px;
+}
+
+#btn-battle img {
+  height: 50px;
+}
+
+#btn-feed {
+  display: none;
+  bottom: 8px;
+  right: 8px;
+}
+
+#btn-feed img {
+  height: 36px;
+}
+
+/* Menu panel */
+#menu-panel {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 30, 0.92);
+  z-index: 20;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+#menu-panel.active {
+  display: flex;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.15s, filter 0.15s;
+  image-rendering: pixelated;
+}
+
+.menu-btn img {
+  display: block;
+  image-rendering: pixelated;
+  pointer-events: none;
+  height: 40px;
+}
+
+.menu-btn:hover {
+  transform: scale(1.12);
+  filter: brightness(1.3) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+
+.menu-btn:active {
+  transform: scale(0.95);
+}
+
+/* Close button in menu — positioned top-right */
+#menu-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+#menu-close img {
+  height: 28px;
+}
+
+/* Hunger bar */
+#hunger-bar-container {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  width: 100px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 18;
+  display: none;
+}
+
+#hunger-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71);
+  border-radius: 5px;
+  transition: width 0.3s;
+}
+
+#hunger-label {
+  position: absolute;
+  top: 5px;
+  left: 115px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: #aaa;
+  z-index: 18;
+  display: none;
+}
+
+/* Store button in the menu (text button, so it needs its own styling) */
+#menu-store {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  color: #fff;
+  background: #6c5ce7;
+  border-radius: 8px;
+  height: 40px;
+  padding: 0 18px;
+}
+
+/* Store overlay (holds store.html in an iframe) */
+#store-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0a0a1a;
+  z-index: 40;
+}
+
+#store-overlay.active {
+  display: block;
+}
+
+#store-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+/* Integrated training simulator */
+#menu-store img, #menu-training img { height: 40px; }
+#training-overlay {
+  display:none; position:absolute; inset:0; z-index:45; overflow:auto;
+  padding:28px 18px 16px; background:rgba(8,11,29,.97); color:#e9e7ff;
+  text-align:center; flex-direction:column; align-items:center; gap:12px;
+  font-family:'Press Start 2P',monospace;
+}
+#training-overlay.active { display:flex; }
+#training-overlay h2 { color:#a99bff; font-size:14px; line-height:1.6; margin:8px 20px 0; }
+.training-subtitle { font:11px/1.6 Inter,sans-serif; color:#c9c6e8; }
+.training-stats { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; font-size:9px; }
+.training-stats span { background:#171d38; border:1px solid #5147a7; padding:9px; border-radius:7px; }
+.training-stats b { color:#75e5ff; }
+.training-actions { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+.training-action,.training-fight,.training-back,.overlay-close,#prompt-submit {
+  display:flex; align-items:center; justify-content:center; gap:7px; cursor:pointer;
+  color:#fff; background:#242448; border:1px solid #7467d8; border-radius:8px;
+  padding:9px; font:8px 'Press Start 2P',monospace;
+}
+.training-action img { width:25px; height:25px; }
+.training-fight img,.training-back img { width:20px; height:20px; }
+.training-action:hover,.training-fight:hover,.training-back:hover { background:#3c3478; }
+#training-result { font:10px/1.7 Inter,sans-serif; min-height:34px; color:#a8f0d0; max-width:420px; }
+#training-log { font:9px/1.7 Inter,sans-serif; color:#ffd6a0; min-height:28px; max-width:420px; }
+.overlay-close { position:absolute; right:8px; top:7px; padding:2px; border:0; background:transparent; }
+.overlay-close img { height:26px; }
+#prompt-submit { padding:4px 8px; vertical-align:middle; }
+#prompt-submit img { width:22px; height:22px; }
+
+
+/* Inventory overlay */
+#inventory-overlay {
+  display:none; position:absolute; inset:0; z-index:46; overflow:auto;
+  padding:28px 18px 16px; background:rgba(8,11,29,.98); color:#e9e7ff;
+  text-align:center; flex-direction:column; align-items:center; gap:12px;
+  font-family:'Press Start 2P',monospace;
+}
+#inventory-overlay.active { display:flex; }
+#inventory-overlay h2 { color:#a99bff; font-size:15px; line-height:1.6; margin:8px 20px 0; }
+.inventory-subtitle { font:12px/1.6 Inter,sans-serif; color:#c9c6e8; margin:0; }
+.inventory-summary { color:#75e5ff; font-size:9px; line-height:1.8; background:#171d38; border:1px solid #5147a7; border-radius:7px; padding:9px 12px; }
+.inventory-items { display:flex; flex-direction:column; gap:8px; width:min(100%,440px); }
+.inventory-card { display:flex; align-items:center; gap:10px; text-align:left; padding:10px; background:#151a34; border:1px solid var(--item-color,#5147a7); border-left:4px solid var(--item-color,#5147a7); border-radius:8px; }
+.inventory-item-icon img { width:27px; height:27px; }
+.inventory-item-copy { flex:1; min-width:0; }
+.inventory-item-copy h3 { margin:0 0 5px; font-size:9px; color:#fff; }
+.inventory-item-copy p,.inventory-item-copy small { font:11px/1.5 Inter,sans-serif; color:#c9c6e8; margin:0; }
+.inventory-item-copy small { color:#75e5ff; }
+.inventory-use { display:flex; align-items:center; gap:4px; border:1px solid #7467d8; border-radius:6px; background:#242448; color:#fff; padding:7px; font:8px 'Press Start 2P',monospace; cursor:pointer; }
+.inventory-use img { width:16px; height:16px; }
+.inventory-empty,#inventory-message { font:12px/1.6 Inter,sans-serif; color:#a8f0d0; }
+#inventory-back img { width:20px; height:20px; }
